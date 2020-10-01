@@ -32,6 +32,7 @@ class LexicalAnalyzer{
             switch(state) {
                 // Nó de entrada
                 case 1:
+                    // Tratando início de palavras reservadas
                     if(c == 'p') state = 171;
                     else if(c == 'i') state = 11;
                     else if(c == 'c') state = 61;
@@ -44,13 +45,84 @@ class LexicalAnalyzer{
                     else if(c == 'u') state = 141;
                     else if(c == 'w') state = 151;
 
-                    // Tratar variáveis e sinais
-                    else if((int)c == 1) state = 0;
+                    // Tratando identificadores
+                    else if(isLetter(c)) state = 182;
                 
                 case 11:
+                    // Tratando palavras reservadas
                     if(c == 's') state = 12;
                     else if(c == 'f') state = 22;
-                    else if(c == 'n') state = 32;     
+                    else if(c == 'n') state = 32; 
+
+                    // Tratando identificadores
+                    else if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
+                    }  
+
+                case 12:
+                    // Tratando identificadores
+                    if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN IS
+                    } 
+
+                case 22:
+                    // Tratando identificadores
+                    if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN IF
+                    } 
+                
+                case 32:
+                    // Tratando palavras reservadas
+                    if(c == 't') state = 43;
+                    else if(c == 'i') state = 53;
+
+                    // Tratando identificadores
+                    else if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN IN
+                    } 
+
+                case 43:
+                    // Tratando identificadores
+                    if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN INT
+                    } 
+
+                case 53:
+                    // Tratando palavras reservadas
+                    if(c == 't') state = 54;
+
+                    // Tratando identificadores
+                    else if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
+                    } 
+
+                case 54:
+                    // Tratando identificadores
+                    if(isCharIdentifier(c)) state = 182;   
+
+                    // Tratando fim de token
+                    else if(isPrimaryLimiter(c)){
+                        //AQUI LÓGICA DE ENCONTROU TOKEN INIT
+                    } 
+                
                 
                 default:
                     break;
@@ -64,4 +136,26 @@ class LexicalAnalyzer{
         string fileName;
         FILE *file;
         int line;
+
+        string primaryLimiter = " <>=!,";
+
+        bool isLetter(char c){
+            return (int)c >= (int)'A' && (int)c <= (int)'Z' || (int)c >= (int)'a' && (int)c <= (int)'z';
+        }
+
+        bool isNumber(char c){
+            return (int)c >= (int)'0' && (int)c <= (int)'9';
+        }
+
+        bool isCharIdentifier(char c){
+            return isLetter(c) || isNumber(c) || c == '_';
+        }
+
+        bool isPrimaryLimiter(char c){
+            for(int i = 0; i < primaryLimiter.length(); i++){
+                if(c == primaryLimiter[i]) return true;
+            }
+            return false;
+        }
+
 };
