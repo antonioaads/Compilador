@@ -1,0 +1,17 @@
+program
+is
+if
+in
+int
+init
+char
+do
+declare
+end
+else
+float
+out
+repeat
+then
+until
+while
