@@ -1,2 +1,1 @@
-as2=>;;ste  asasas
-123
+init

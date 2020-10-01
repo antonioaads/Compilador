@@ -25,110 +25,138 @@ class LexicalAnalyzer{
 
         char getNextToken(){
             int state = 1;
+        
+            //while(1){
+            for(int i = 0; i< 5; i++){
+                if(getNewChar){
+                    c = getc(file);
+                }
+                else getNewChar = true;
 
-            char c = getc(file);
+                switch(state) {
+                    // Nó de entrada
+                    case 1:
+                        log(1);
+                        // Tratando início de palavras reservadas
+                        if(c == 'p') state = 171;
+                        else if(c == 'i') state = 11;
+                        else if(c == 'c') state = 61;
+                        else if(c == 'd') state = 161;
+                        else if(c == 'e') state = 81;
+                        else if(c == 'f') state = 101;
+                        else if(c == 'o') state = 111;
+                        else if(c == 'r') state = 121;
+                        else if(c == 't') state = 131;
+                        else if(c == 'u') state = 141;
+                        else if(c == 'w') state = 151;
 
+                        // Tratando identificadores
+                        else if(isLetter(c)) state = 182;
 
-            switch(state) {
-                // Nó de entrada
-                case 1:
-                    // Tratando início de palavras reservadas
-                    if(c == 'p') state = 171;
-                    else if(c == 'i') state = 11;
-                    else if(c == 'c') state = 61;
-                    else if(c == 'd') state = 161;
-                    else if(c == 'e') state = 81;
-                    else if(c == 'f') state = 101;
-                    else if(c == 'o') state = 111;
-                    else if(c == 'r') state = 121;
-                    else if(c == 't') state = 131;
-                    else if(c == 'u') state = 141;
-                    else if(c == 'w') state = 151;
+                        break;
+                    
+                    case 11:
+                        log(11);
+                        // Tratando palavras reservadas
+                        if(c == 's') state = 12;
+                        else if(c == 'f') state = 22;
+                        else if(c == 'n') state = 32; 
 
-                    // Tratando identificadores
-                    else if(isLetter(c)) state = 182;
-                
-                case 11:
-                    // Tratando palavras reservadas
-                    if(c == 's') state = 12;
-                    else if(c == 'f') state = 22;
-                    else if(c == 'n') state = 32; 
+                        // Tratando identificadores
+                        else if(isCharIdentifier(c)) state = 182;   
 
-                    // Tratando identificadores
-                    else if(isCharIdentifier(c)) state = 182;   
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
+                        }  
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
-                    }  
+                        break;
 
-                case 12:
-                    // Tratando identificadores
-                    if(isCharIdentifier(c)) state = 182;   
+                    case 12:
+                        log(12);
+                        // Tratando identificadores
+                        if(isCharIdentifier(c)) state = 182;   
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN IS
-                    } 
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN IS
+                        } 
 
-                case 22:
-                    // Tratando identificadores
-                    if(isCharIdentifier(c)) state = 182;   
+                        break;
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN IF
-                    } 
-                
-                case 32:
-                    // Tratando palavras reservadas
-                    if(c == 't') state = 43;
-                    else if(c == 'i') state = 53;
+                    case 22:
+                        log(22);
+                        // Tratando identificadores
+                        if(isCharIdentifier(c)) state = 182;   
 
-                    // Tratando identificadores
-                    else if(isCharIdentifier(c)) state = 182;   
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN IF
+                        } 
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN IN
-                    } 
+                        break;
+                    
+                    case 32:
+                        log(32);
+                        // Tratando palavras reservadas
+                        if(c == 't') state = 43;
+                        else if(c == 'i') state = 53;
 
-                case 43:
-                    // Tratando identificadores
-                    if(isCharIdentifier(c)) state = 182;   
+                        // Tratando identificadores
+                        else if(isCharIdentifier(c)) state = 182;   
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN INT
-                    } 
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN IN
+                        } 
 
-                case 53:
-                    // Tratando palavras reservadas
-                    if(c == 't') state = 54;
+                        break;
 
-                    // Tratando identificadores
-                    else if(isCharIdentifier(c)) state = 182;   
+                    case 43:
+                        log(43);
+                        // Tratando identificadores
+                        if(isCharIdentifier(c)) state = 182;   
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
-                    } 
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN INT
+                        } 
 
-                case 54:
-                    // Tratando identificadores
-                    if(isCharIdentifier(c)) state = 182;   
+                        break;
 
-                    // Tratando fim de token
-                    else if(isPrimaryLimiter(c)){
-                        //AQUI LÓGICA DE ENCONTROU TOKEN INIT
-                    } 
-                
-                
-                default:
-                    break;
+                    case 53:
+                        log(53);
+                        // Tratando palavras reservadas
+                        if(c == 't') state = 54;
 
+                        // Tratando identificadores
+                        else if(isCharIdentifier(c)) state = 182;   
+
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN IDENTIFICADOR
+                        } 
+
+                        break;
+
+                    case 54:
+                        log(54);
+                        // Tratando identificadores
+                        if(isCharIdentifier(c)) state = 182;   
+
+                        // Tratando fim de token
+                        else if(isPrimaryLimiter(c)){
+                            //AQUI LÓGICA DE ENCONTROU TOKEN INIT
+                        } 
+
+                        break;
+                    
+                    
+                    default:
+                        break;
+
+                }
             }
-
 
             return c;
         }
@@ -136,6 +164,8 @@ class LexicalAnalyzer{
         string fileName;
         FILE *file;
         int line;
+        bool getNewChar = true;
+        char c;
 
         string primaryLimiter = " <>=!,";
 
@@ -156,6 +186,10 @@ class LexicalAnalyzer{
                 if(c == primaryLimiter[i]) return true;
             }
             return false;
+        }
+
+        void log(int state){
+            cout << "Entrou no estado: " << state << "Com o caracter: " << c << endl;
         }
 
 };
