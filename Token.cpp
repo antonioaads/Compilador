@@ -6,12 +6,12 @@ using namespace std;
 
 class Token{
     private:
-        string nome;
     public:
-        void setNome(string nome){
-            this->nome = nome;
-        }
-        string getNome(){
-            return nome;
+        int type;
+        string lexema;
+        Token();
+        Token(int type, string lexema){
+            this->type = type;
+            this->lexema = lexema;
         }
 };
