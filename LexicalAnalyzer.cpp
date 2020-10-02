@@ -25,9 +25,10 @@ class LexicalAnalyzer{
 
         char getNextToken(){
             int state = 1;
-        
-            //while(1){
-            for(int i = 0; i< 5; i++){
+            int i = 0;
+            while(!feof(file)){
+            ++i;
+            // for(int i = 0; i< 5; i++){
                 if(getNewChar){
                     c = getc(file);
                 }
