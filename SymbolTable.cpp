@@ -16,7 +16,7 @@ Line* lines[20];
         for(Line i: lines){
             i = NULL;
         }
-    }
+    },
 
     int insertName(string name, int level, string type){
         //TODO pegar esse index
@@ -38,8 +38,7 @@ Line* lines[20];
             return true
         }
         return false;
-    }    
-
+    },    
 
     bool searchForName(string name, int level, string type){
         //TODO pegar esse index (buscando pelo name?)
@@ -58,50 +57,62 @@ Line* lines[20];
         }
 
         return false;
-    }
+    },
 
-    string getAttributes(){
-        return "";
-    }
+    string getAttributes(string name){ 
+        int i = 1; 
+        Line* line = lines[i]; 
+        //se não tiver linhas    
+        if (line == NULL) { 
+            return "NotFound"; 
+        }
+        //busca pelo nome que queremos os atributos
+        do{
+            tmp = tmp->next; 
+        }while (line->name != name line->next != NULL) {  
+        //se encontrou retorna o atributo
+        if (line->name == name) {             
+            return line->type; 
+        }
+        //se saiu do while sem encontrar
+        return "NotFound";
+    },
 
-    bool removeName(){
-    int i = hash(name); 
-    Line* tmp = lines[i]; 
-    Line* par = lines[i]; 
-   
-   //sem nome
-    if (tmp == NULL) { 
-        return false; 
-    } 
-  //só um nome, apaga o mesmo
-    if (tmp->name == name && tmp->next == NULL) { 
-        tmp->next = NULL; 
-        delete tmp; 
-        return true; 
-    } 
-  
-  //buscar as ocorrências do nome e apagar elas, puxando as linhas que estão depois da linha apagada
-    while (tmp->name != name && tmp->next != NULL) { 
-        par = tmp; 
-        tmp = tmp->next; 
-    } 
-    if (tmp->name == name && tmp->next != NULL) { 
-        par->next = tmp->next; 
-        tmp->next = NULL; 
-        delete tmp; 
-        return true; 
-    } 
-  
-    // Deleta no final 
-    else { 
-        par->next = NULL; 
-        tmp->next = NULL; 
-        delete tmp; 
-        return true; 
-    } 
-    return false; 
-} 
+    bool removeName(string name){
+        int i = 1; 
+        Line* tmp = lines[i]; 
+        Line* par = lines[i]; 
     
-    }
-
+        //sem nome
+        if (tmp == NULL) { 
+            return false; 
+        } 
+        //só um nome, apaga o mesmo
+        if (tmp->name == name && tmp->next == NULL) { 
+            tmp->next = NULL; 
+            delete tmp; 
+            return true; 
+        } 
+    
+        //buscar as ocorrências do nome e apagar elas, puxando as linhas que estão depois da linha apagada
+        while (tmp->name != name && tmp->next != NULL) { 
+            par = tmp; 
+            tmp = tmp->next; 
+        } 
+        if (tmp->name == name && tmp->next != NULL) { 
+            par->next = tmp->next; 
+            tmp->next = NULL; 
+            delete tmp; 
+            return true; 
+        } 
+    
+        // Deleta no final se for o último
+        else { 
+            par->next = NULL; 
+            tmp->next = NULL; 
+            delete tmp; 
+            return true; 
+        } 
+        return false; 
+    }, 
 };
