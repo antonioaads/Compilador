@@ -24,11 +24,11 @@ class LexicalAnalyzer{
         }
 
         Token getNextToken(){
-            int state = 1;
-            string leitura;
-            Token token = Token(TokenTypes::IDENTIFIER, leitura);
+            state = 1;
+            leitura = "";
+            token = Token(TokenTypes::IDENTIFIER, leitura);
             //while(1){
-            for(int i = 0; i< 5; i++){
+            for(int i = 0; i< 10; i++){
                 if(getNewChar){
                     c = getc(file);
                 }
@@ -37,22 +37,22 @@ class LexicalAnalyzer{
                 switch(state) {
                     // Nó de entrada
                     case 1:
-                        log(1);
+                        log();
                         // Tratando início de palavras reservadas
-                        if(c == 'p') matchChar(171, 'p', &state, &leitura);
-                        else if(c == 'c') matchChar(61, 'c', &state, &leitura);
-                        else if(c == 'd') matchChar(161, 'd', &state, &leitura);
-                        else if(c == 'e') matchChar(81, 'e', &state, &leitura);
-                        else if(c == 'i') matchChar(11, 'i', &state, &leitura);
-                        else if(c == 'f') matchChar(101, 'f', &state, &leitura);
-                        else if(c == 'o') matchChar(111, 'o', &state, &leitura);
-                        else if(c == 'r') matchChar(121, 'r', &state, &leitura);
-                        else if(c == 't') matchChar(131, 't', &state, &leitura);
-                        else if(c == 'u') matchChar(141, 'u', &state, &leitura);
-                        else if(c == 'w') matchChar(151, 'w', &state, &leitura);
+                        if(c == 'p') matchChar(171);
+                        else if(c == 'c') matchChar(61);
+                        else if(c == 'd') matchChar(161);
+                        else if(c == 'e') matchChar(81);
+                        else if(c == 'i') matchChar(11);
+                        else if(c == 'f') matchChar(101);
+                        else if(c == 'o') matchChar(111);
+                        else if(c == 'r') matchChar(121);
+                        else if(c == 't') matchChar(131);
+                        else if(c == 'u') matchChar(141);
+                        else if(c == 'w') matchChar(151);
 
                         // Tratando identificadores
-                        else if(isLetter(c)) matchChar(182, c, &state, &leitura);
+                        else if(isLetter(c)) matchChar(182);
                         
                         // Tratando excecoes
                         else if(c == ' ') state = 1;
@@ -60,163 +60,196 @@ class LexicalAnalyzer{
                         break;
                     
                     case 11:
-                        log(11);
+                        log();
                         // Tratando palavras reservadas
-                        if(c == 's') matchChar(12, 's', &state, &leitura);
-                        else if(c == 'n') matchChar(32, 'n', &state, &leitura);
-                        else if(c == 'f') matchChar(22, 'f', &state, &leitura);
+                        if(c == 's') matchChar(12);
+                        else if(c == 'n') matchChar(32);
+                        else if(c == 'f') matchChar(22);
 
-                        // Tratando identificadores
-                        else if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);  
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN IDENTIFICADOR
-                            token = Token(TokenTypes::IDENTIFIER, leitura);
-                            logToken(token); 
-                            return token;
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
                         }  
-
                         break;
 
                     case 12:
-                        log(12);
- 
-                        // Tratando identificadores
-                        if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN IS
-                            token = Token(TokenTypes::IS, leitura);
-                            logToken(token); 
+                        log();
+                        finalNodeStandartWord(TokenTypes::IS);
+                        if(token.isNotNull()){
+                            logToken();    
                             return token;
                         } 
-
                         break;
 
                     case 22:
-                        log(22);
-                        // Tratando identificadores
-                        if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);   
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //AQUI LÓGICA DE ENCONTROU TOKEN IF
-                            token = Token(TokenTypes::IF, leitura);
-                            logToken(token); 
+                        log();
+                        finalNodeStandartWord(TokenTypes::IF);
+                        if(token.isNotNull()){
+                            logToken();    
                             return token;
                         } 
-
                         break;
                     
                     case 32:
-                        log(32);
+                        log();
                         // Tratando palavras reservadas
-                        if(c == 't') matchChar(43, 't', &state, &leitura);
-                        else if(c == 'i') matchChar(53, 'i', &state, &leitura);
+                        if(c == 't') matchChar(43);
+                        else if(c == 'i') matchChar(53);
 
-                        // Tratando identificadores
-                        else if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);   
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN IN
-                            token = Token(TokenTypes::IN, leitura);
-                            logToken(token); 
-                            return token;
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IN);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
                         } 
-
                         break;
 
                     case 43:
-                        log(43);
-                        // Tratando identificadores
-                        if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN INT
-                            token = Token(TokenTypes::INT, leitura);
-                            logToken(token); 
+                        log();
+                        finalNodeStandartWord(TokenTypes::INT);
+                        if(token.isNotNull()){
+                            logToken();    
                             return token;
                         } 
-
                         break;
 
                     case 53:
-                        log(53);
+                        log();
                         // Tratando palavras reservadas
-                        if(c == 't') matchChar(54, 't', &state, &leitura);
+                        if(c == 't') matchChar(54);
 
-                        // Tratando identificadores
-                        else if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN IDENTIFICADOR
-                            token = Token(TokenTypes::IDENTIFIER, leitura);
-                            logToken(token); 
-                            return token;
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
                         } 
-
                         break;
 
                     case 54:
-                        log(54);
-                        // Tratando identificadores
-                        if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN INIT
-                            token = Token(TokenTypes::INIT, leitura);
-                            logToken(token); 
+                        log();
+                        finalNodeStandartWord(TokenTypes::INIT);
+                        if(token.isNotNull()){
+                            logToken();    
                             return token;
-                        } 
-
+                        }
                         break;
                     
                     case 61:
-                        log(53);
+                        log();
                         // Tratando palavras reservadas
-                        if(c == 't') matchChar(54, 't', &state, &leitura);
+                        if(c == 'h') matchChar(62);
 
-                        // Tratando identificadores
-                        else if(isCharIdentifier(c)) matchChar(182, c, &state, &leitura);
-
-                        // Tratando fim de token
-                        else if(isPrimaryLimiter(c)){
-                            // Função asterisco
-                            cacheAsterisk();
-
-                            //ENCONTROU TOKEN IDENTIFICADOR
-                            token = Token(TokenTypes::IDENTIFIER, leitura);
-                            logToken(token); 
-                            return token;
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
                         } 
+                        break;
 
+                    case 62:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'a') matchChar(63);
+
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        } 
+                        break;
+
+                    case 63:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'r') matchChar(64);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+                    
+                    case 64:
+                        log();
+                        finalNodeStandartWord(TokenTypes::CHAR);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 161:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'o') matchChar(162);
+                        else if(c == 'e') matchChar(72);
+
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        } 
+                        break;
+
+                    case 162:
+                        log();
+                        finalNodeStandartWord(TokenTypes::DO);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+                    
+                    case 72:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'c') matchChar(73);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+                    
+                    case 73:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'l') matchChar(74);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
                         break;
 
                     default:
@@ -225,7 +258,7 @@ class LexicalAnalyzer{
                 }
             }
 
-            return Token(123, leitura);;
+            return Token(123, "Defalt error");;
         }
     private:
         string fileName;
@@ -233,7 +266,9 @@ class LexicalAnalyzer{
         int line;
         bool getNewChar = true;
         char c;
-
+        int state = 1;
+        string leitura;
+        Token token = Token(TokenTypes::IDENTIFIER, leitura);
         string primaryLimiter = " <>=!,\n\t";
 
         bool isLetter(char c){
@@ -256,21 +291,37 @@ class LexicalAnalyzer{
             return false;
         }
 
-        void log(int state){
+        void log(){
             cout << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
         }
 
-        void logToken(Token token){
+        void logToken(){
             cout << "Enviou o token: " << token.lexema << endl;
         }
 
-        void matchChar(int state, char c, int* stateRef, string* leituraRef){
-            *stateRef = state;
-            *leituraRef += c;
+        void matchChar(int newState){
+            state = newState;
+            leitura += c;
         }
 
         void cacheAsterisk(){
             getNewChar = false;
+        }
+
+        void finalNodeStandartWord(int tokenType){
+            token = Token();
+
+            // Tratando identificadores
+            if(isCharIdentifier(c)) matchChar(182);
+
+            // Tratando fim de token
+            else if(isPrimaryLimiter(c)){
+                // Função asterisco
+                cacheAsterisk();
+
+                //ENCONTROU TOKEN CHAR
+                token = Token(tokenType, leitura); 
+            }
         }
 
 };

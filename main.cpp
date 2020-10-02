@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
     LexicalAnalyzer a1("exemplo.txt");
 
     Token teste = a1.getNextToken();
-    cout << teste.lexema;
+    cout << teste.lexema << endl;
 
     teste = a1.getNextToken();
     cout << teste.lexema << endl;

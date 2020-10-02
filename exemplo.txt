@@ -1,2 +1,2 @@
-i init is
+cz in int is
 if in
