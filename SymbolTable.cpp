@@ -18,10 +18,10 @@ Line* lines[20];
         }
     }
 
-    int insertName(string id, int level, string type){
+    int insertName(string name, int level, string type){
         //TODO pegar esse index
         int i = 0;
-        Line* line = new Line(id, level, type, 1);
+        Line* line = new Line(name, level, type, 1);
 
         if(lines[i] == NULL) {
             lines[i] = line;
@@ -41,8 +41,8 @@ Line* lines[20];
     }    
 
 
-    bool searchForName(string id, int level, string type){
-        //TODO pegar esse index (buscando pelo id?)
+    bool searchForName(string name, int level, string type){
+        //TODO pegar esse index (buscando pelo name?)
         int i = 0;    
         Line* first = lines[i];
 
@@ -51,9 +51,8 @@ Line* lines[20];
         }
 
         while(first != NULL){
-            if(first->id == id && first->level == level){
-                //retorna a linha, TODO
-                return i;
+            if(first->name == name){
+                return true;
             }
             first = first->next;
         }
@@ -66,54 +65,34 @@ Line* lines[20];
     }
 
     bool removeName(){
-        return true;
-    }
-
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Function to modify an identi
-// Function to delete an identifier 
-bool SymbolTable::deleteRecord(string id) 
-{ 
-    int index = hashf(id); 
-    Node* tmp = head[index]; 
-    Node* par = head[index]; 
-  
-    // no identifier is present at that index 
+    int i = hash(name); 
+    Line* tmp = lines[i]; 
+    Line* par = lines[i]; 
+   
+   //sem nome
     if (tmp == NULL) { 
         return false; 
     } 
-    // only one identifier is present 
-    if (tmp->identifier == id && tmp->next == NULL) { 
+  //só um nome, apaga o mesmo
+    if (tmp->name == name && tmp->next == NULL) { 
         tmp->next = NULL; 
         delete tmp; 
         return true; 
     } 
   
-    while (tmp->identifier != id && tmp->next != NULL) { 
+  //buscar as ocorrências do nome e apagar elas, puxando as linhas que estão depois da linha apagada
+    while (tmp->name != name && tmp->next != NULL) { 
         par = tmp; 
         tmp = tmp->next; 
     } 
-    if (tmp->identifier == id && tmp->next != NULL) { 
+    if (tmp->name == name && tmp->next != NULL) { 
         par->next = tmp->next; 
         tmp->next = NULL; 
         delete tmp; 
         return true; 
     } 
   
-    // delete at the end 
+    // Deleta no final 
     else { 
         par->next = NULL; 
         tmp->next = NULL; 
@@ -122,26 +101,7 @@ bool SymbolTable::deleteRecord(string id)
     } 
     return false; 
 } 
-  
-// Function to find an identifier 
-string SymbolTable::find(string id) 
-{ 
-    int index = hashf(id); 
-    Node* start = head[index]; 
-  
-    if (start == NULL) 
-        return "-1"; 
-  
-    while (start != NULL) { 
-  
-        if (start->identifier == id) { 
-            start->print(); 
-            return start->scope; 
-        } 
-  
-        start = start->next; 
-    } 
-  
-    return "-1"; // not found 
-} 
-  
+    
+    }
+
+};
