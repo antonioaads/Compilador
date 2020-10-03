@@ -346,6 +346,528 @@ class LexicalAnalyzer{
                         }
                         break;
 
+                    case 92:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 's') matchChar(93);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 93:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(94);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 94:
+                        log();
+                        finalNodeStandartWord(TokenTypes::ELSE);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 101:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'l') matchChar(102);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 102:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'o') matchChar(103);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 103:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'a') matchChar(104);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 104:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 't') matchChar(105);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 105:
+                        log();
+                        finalNodeStandartWord(TokenTypes::FLOAT);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 111:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'u') matchChar(112);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 112:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 't') matchChar(113);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 113:
+                        log();
+                        finalNodeStandartWord(TokenTypes::OUT);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 121:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(122);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 122:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'p') matchChar(123);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 123:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(124);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 124:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'a') matchChar(125);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 125:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 't') matchChar(126);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 126:
+                        log();
+                        finalNodeStandartWord(TokenTypes::REPEAT);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 131:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'h') matchChar(132);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 132:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(133);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 133:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'n') matchChar(134);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 134:
+                        log();
+                        finalNodeStandartWord(TokenTypes::THEN);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 141:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'n') matchChar(142);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 142:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 't') matchChar(143);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 143:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'i') matchChar(144);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 144:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'l') matchChar(145);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 145:
+                        log();
+                        finalNodeStandartWord(TokenTypes::UNTIL);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 151:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'h') matchChar(152);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 152:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'i') matchChar(153);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 153:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'l') matchChar(154);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 154:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(155);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 155:
+                        log();
+                        finalNodeStandartWord(TokenTypes::WHILE);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 171:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'r') matchChar(172);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 172:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'o') matchChar(173);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 173:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'g') matchChar(174);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 174:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'r') matchChar(175);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 175:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'a') matchChar(176);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 176:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'm') matchChar(177);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+                        
+                    case 177:
+                        log();
+                        finalNodeStandartWord(TokenTypes::PROGRAM);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
                     default:
                         break;
 
