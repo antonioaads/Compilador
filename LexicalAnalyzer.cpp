@@ -252,6 +252,100 @@ class LexicalAnalyzer{
                         }
                         break;
 
+                    case 74:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'a') matchChar(75);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 75:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'r') matchChar(76);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 76:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'e') matchChar(77);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 77:
+                        log();
+                        finalNodeStandartWord(TokenTypes::DECLARE);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 81:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'n') matchChar(82);
+                        else if(c == 'l') matchChar(92);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 82:
+                        log();
+                        // Tratando palavras reservadas
+                        if(c == 'd') matchChar(83);
+
+                       // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+                        break;
+
+                    case 83:
+                        log();
+                        finalNodeStandartWord(TokenTypes::END);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
                     default:
                         break;
 

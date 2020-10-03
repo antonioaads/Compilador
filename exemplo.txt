@@ -1,2 +1,2 @@
-cz in int is
+end in int is
 if in
