@@ -7,10 +7,14 @@ using namespace std;
 class LexicalAnalyzer{
     public:
         LexicalAnalyzer();
-        LexicalAnalyzer(string fileName){
+        LexicalAnalyzer(string fileName, Node nodes[], Way *ways[]){
             this->line = 0;
             this->fileName = fileName;
-            
+            this->nodes = nodes;
+            this->ways = ways;
+
+            structure = Structure();
+
             FILE *file; 
             
             file = fopen("exemplo.txt", "r");
@@ -27,239 +31,74 @@ class LexicalAnalyzer{
             state = 1;
             leitura = "";
             token = Token(TokenTypes::IDENTIFIER, leitura);
+            
+            Way teste = structure.getWay(0, 0);
+            cout << "testex" << nodes[0].number << endl;
+            
             //while(1){
             for(int i = 0; i< 10; i++){
+                cout << "entrou" << endl;
                 if(getNewChar){
                     c = getc(file);
                 }
                 else getNewChar = true;
 
-                switch(state) {
-                    // Nó de entrada
-                    case 1:
-                        log();
-                        // Tratando início de palavras reservadas
-                        if(c == 'p') matchChar(171);
-                        else if(c == 'c') matchChar(61);
-                        else if(c == 'd') matchChar(161);
-                        else if(c == 'e') matchChar(81);
-                        else if(c == 'i') matchChar(11);
-                        else if(c == 'f') matchChar(101);
-                        else if(c == 'o') matchChar(111);
-                        else if(c == 'r') matchChar(121);
-                        else if(c == 't') matchChar(131);
-                        else if(c == 'u') matchChar(141);
-                        else if(c == 'w') matchChar(151);
+                // Nó de entrada
+                if(state == 1) {
+                    log();
+                    // Tratando início de palavras reservadas
+                    if(c == 'p') matchChar(171);
+                    else if(c == 'c') matchChar(61);
+                    else if(c == 'd') matchChar(161);
+                    else if(c == 'e') matchChar(81);
+                    else if(c == 'i') matchChar(11);
+                    else if(c == 'f') matchChar(101);
+                    else if(c == 'o') matchChar(111);
+                    else if(c == 'r') matchChar(121);
+                    else if(c == 't') matchChar(131);
+                    else if(c == 'u') matchChar(141);
+                    else if(c == 'w') matchChar(151);
 
-                        // Tratando identificadores
-                        else if(isLetter(c)) matchChar(182);
-                        
-                        // Tratando excecoes
-                        else if(c == ' ') state = 1;
-
-                        break;
+                    // Tratando identificadores
+                    else if(isLetter(c)) matchChar(182);
                     
-                    case 11:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 's') matchChar(12);
-                        else if(c == 'n') matchChar(32);
-                        else if(c == 'f') matchChar(22);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        }  
-                        break;
-
-                    case 12:
-                        log();
-                        finalNodeStandartWord(TokenTypes::IS);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        } 
-                        break;
-
-                    case 22:
-                        log();
-                        finalNodeStandartWord(TokenTypes::IF);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        } 
-                        break;
-                    
-                    case 32:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 't') matchChar(43);
-                        else if(c == 'i') matchChar(53);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IN);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        } 
-                        break;
-
-                    case 43:
-                        log();
-                        finalNodeStandartWord(TokenTypes::INT);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        } 
-                        break;
-
-                    case 53:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 't') matchChar(54);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        } 
-                        break;
-
-                    case 54:
-                        log();
-                        finalNodeStandartWord(TokenTypes::INIT);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        }
-                        break;
-                    
-                    case 61:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'h') matchChar(62);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        } 
-                        break;
-
-                    case 62:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'a') matchChar(63);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        } 
-                        break;
-
-                    case 63:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'r') matchChar(64);
-
-                       // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        }
-                        break;
-                    
-                    case 64:
-                        log();
-                        finalNodeStandartWord(TokenTypes::CHAR);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        }
-                        break;
-
-                    case 161:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'o') matchChar(162);
-                        else if(c == 'e') matchChar(72);
-
-                        // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        } 
-                        break;
-
-                    case 162:
-                        log();
-                        finalNodeStandartWord(TokenTypes::DO);
-                        if(token.isNotNull()){
-                            logToken();    
-                            return token;
-                        }
-                        break;
-                    
-                    case 72:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'c') matchChar(73);
-
-                       // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        }
-                        break;
-                    
-                    case 73:
-                        log();
-                        // Tratando palavras reservadas
-                        if(c == 'l') matchChar(74);
-
-                       // Tratando Nodo final
-                        else {
-                            finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                            if(token.isNotNull()){
-                                logToken();    
-                                return token;
-                            } 
-                        }
-                        break;
-
-                    default:
-                        break;
-
+                    // Tratando excecoes
+                    else if(c == ' ') state = 1;
                 }
-            }
+                else {
+                    for(int i = 0; i < structure.getSize(); i++){
+                        if(state == structure.getNode(i).number){
+                            log();
+                            bool matchCharDone = false;
 
-            return Token(123, "Defalt error");;
-        }
+                            for(int j = 0; j < structure.getNode(i).quantWays; j++){
+                                Way teste = structure.getWay(0, 0);
+                                cout << teste.destiny;
+                                cout << "i: " << i << " j " << j << " Numero node " << structure.getNode(i).number << " way: " << ways[0] << endl;
+                                if(c == structure.getWay(i,j).matchChar) {
+                                    matchChar(structure.getWay(i,j).destiny);
+                                    matchCharDone = true;
+                                    break;
+                                }
+                            }
+
+                            // Tratando Nodo final
+                            if(!matchCharDone) {
+                                finalNodeStandartWord(structure.getNode(i).finalToken);
+                                if(token.isNotNull()){
+                                    logToken();    
+                                    return token;
+                                } 
+                            }  
+                            break;
+                        }
+                    }
+                }
+                
+            };
+
+            return Token(123, "Defalt error");
+        };
     private:
         string fileName;
         FILE *file;
@@ -270,6 +109,9 @@ class LexicalAnalyzer{
         string leitura;
         Token token = Token(TokenTypes::IDENTIFIER, leitura);
         string primaryLimiter = " <>=!,\n\t";
+        Structure structure;
+        Node *nodes; 
+        Way **ways;
 
         bool isLetter(char c){
             return (int)c >= (int)'A' && (int)c <= (int)'Z' || (int)c >= (int)'a' && (int)c <= (int)'z';
@@ -300,6 +142,7 @@ class LexicalAnalyzer{
         }
 
         void matchChar(int newState){
+            cout << "matchChar" << newState << " " << c << endl;
             state = newState;
             leitura += c;
         }

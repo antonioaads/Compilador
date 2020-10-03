@@ -9,6 +9,7 @@ class Token{
     public:
         int type = 0;
         string lexema;
+        
         Token(){
             this->type = 0;
         }
