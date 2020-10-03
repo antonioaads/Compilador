@@ -25,7 +25,10 @@ namespace TokenTypes{
         IDENTIFIER,
         RELOP,
         ADDOP,
-        MULOP
+        MULOP,
+        SEMICOLON,
+        COLON, 
+        COMMA
     };
 }
 

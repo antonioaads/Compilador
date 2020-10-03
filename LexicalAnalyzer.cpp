@@ -27,8 +27,8 @@ class LexicalAnalyzer{
             state = 1;
             leitura = "";
             token = Token(TokenTypes::IDENTIFIER, leitura);
-            //while(1){
-            for(int i = 0; i< 10; i++){
+            while(1){
+            //for(int i = 0; i< 10; i++){
                 if(getNewChar){
                     c = getc(file);
                 }
@@ -56,6 +56,38 @@ class LexicalAnalyzer{
                         
                         // Tratando excecoes
                         else if(c == ' ') state = 1;
+
+                        // Tratando pontuações únicas
+                        else if(c == ':'){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::COLON, ":");
+                        }
+                        else if(c == ';'){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::SEMICOLON, ";");
+                        }
+                        else if(c == ','){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::COMMA, ",");
+                        }
+                        else if(c == '+'){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::ADDOP, "+");
+                        }
+                        else if(c == '-'){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::ADDOP, "-");
+                        }
+                        else if(c == '*'){
+                            matchChar(1);
+                            logToken();
+                            return Token(TokenTypes::MULOP, "*");
+                        }
 
                         break;
                     
@@ -868,6 +900,24 @@ class LexicalAnalyzer{
                         }
                         break;
 
+                    case 182:
+                        log();
+                        finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
+                    case 191:
+                        log();
+                        finalNodeStandartWord(TokenTypes::IDENTIFIER);
+                        if(token.isNotNull()){
+                            logToken();    
+                            return token;
+                        }
+                        break;
+
                     default:
                         break;
 
@@ -885,7 +935,7 @@ class LexicalAnalyzer{
         int state = 1;
         string leitura;
         Token token = Token(TokenTypes::IDENTIFIER, leitura);
-        string primaryLimiter = " <>=!,\n\t";
+        string primaryLimiter = " <>=!,:;+-*/\n\t";
 
         bool isLetter(char c){
             return (int)c >= (int)'A' && (int)c <= (int)'Z' || (int)c >= (int)'a' && (int)c <= (int)'z';

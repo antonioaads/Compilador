@@ -1,2 +1,2 @@
-until while program int is
+var*; while program int is
 if in
