@@ -7,13 +7,15 @@ using namespace std;
 class LexicalAnalyzer{
     public:
         LexicalAnalyzer();
-        LexicalAnalyzer(string fileName){
+        LexicalAnalyzer(char* fileName, bool withTokenLog = false, bool withLineLog = false){
             this->line = 0;
             this->fileName = fileName;
-            
+            this->withLineLog = withLineLog;
+            this->withTokenLog = withTokenLog;
+
             FILE *file; 
             
-            file = fopen("exemplo.txt", "r");
+            file = fopen(fileName, "r");
             
             if(file == NULL)
             {
@@ -33,7 +35,8 @@ class LexicalAnalyzer{
                     c = getc(file);
                 }
                 else getNewChar = true;
-
+                
+                if(c == EOF) break;
                 switch(state) {
                     // Nó de entrada
                     case 1:
@@ -60,35 +63,49 @@ class LexicalAnalyzer{
                         // Tratando pontuações únicas
                         else if(c == ':'){
                             matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::COLON, ":");
+                            finalNodeSymbol(TokenTypes::COLON);
+                            return token;
                         }
                         else if(c == ';'){
                             matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::SEMICOLON, ";");
+                            finalNodeSymbol(TokenTypes::SEMICOLON);
+                            return token;
                         }
                         else if(c == ','){
                             matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::COMMA, ",");
+                            finalNodeSymbol(TokenTypes::COMMA);
+                            return token;
                         }
-                        else if(c == '+'){
+                        else if(c == '-' || c == '+'){
                             matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::ADDOP, "+");
-                        }
-                        else if(c == '-'){
-                            matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::ADDOP, "-");
+                            finalNodeSymbol(TokenTypes::ADDOP);
+                            return token;
                         }
                         else if(c == '*'){
                             matchChar(1);
-                            logToken();
-                            return Token(TokenTypes::MULOP, "*");
+                            finalNodeSymbol(TokenTypes::MULOP);
+                            return token;
+                        }
+                        else if(c == '(' || c == ')'){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::PARENTHESES);
+                            return token;
+                        }
+                        else if(c == '"' || c == '\''){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::QUOTES);
+                            return token;
                         }
 
+                        // Tratando sequencia de caracteres
+                        else if(c == '=') matchChar(191);
+                        else if(c == '>') matchChar(211);
+                        else if(c == '<') matchChar(231);
+                        else if(c == '!') matchChar(261);
+                        else if(c == '|') matchChar(281);
+                        else if(c == '&') matchChar(291);
+
+                        return errorToken;
                         break;
                     
                     case 11:
@@ -371,6 +388,7 @@ class LexicalAnalyzer{
 
                     case 83:
                         log();
+                        cout << "teste";
                         finalNodeStandartWord(TokenTypes::END);
                         if(token.isNotNull()){
                             logToken();    
@@ -911,31 +929,128 @@ class LexicalAnalyzer{
 
                     case 191:
                         log();
-                        finalNodeStandartWord(TokenTypes::IDENTIFIER);
-                        if(token.isNotNull()){
-                            logToken();    
+                        // Tratando ==
+                        if(c == '='){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        // Tratando =
+                        else {
+                            cacheAsterisk();
+                            finalNodeSymbol(TokenTypes::EQUAL);
                             return token;
                         }
                         break;
 
+                    case 211:
+                        log();
+                        // Tratando >>
+                        if(c == '>'){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::WRITE);
+                            return token;
+                        }
+                        // Tratando >=
+                        else if(c == '='){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        // Tratando >
+                        else {
+                            cacheAsterisk();
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        break;
+                    
+                    case 231:
+                        log();
+                        // Tratando <<
+                        if(c == '<'){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::READ);
+                            return token;
+                        }
+                        // Tratando <=
+                        else if(c == '='){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        // Tratando <
+                        else {
+                            cacheAsterisk();
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        break;
+
+                    case 261:
+                        log();
+                        // Tratando !=
+                        if(c == '='){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::RELOP);
+                            return token;
+                        }
+                        // Tratando !
+                        else {
+                            cacheAsterisk();
+                            finalNodeSymbol(TokenTypes::NOT);
+                            return token;
+                        }
+                        break;
+
+                    case 281:
+                        log();
+                        // Tratando ||
+                        if(c == '|'){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::ADDOP);
+                            return token;
+                        }
+                        // Tratando Erro  
+                        cacheAsterisk();
+                        return errorToken;
+                        break;
+                    
+                    case 291:
+                        log();
+                        // Tratando ||
+                        if(c == '&'){
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::MULOP);
+                            return token;
+                        }
+                        // Tratando Erro  
+                        cacheAsterisk();
+                        return errorToken;
+                        break;
+
                     default:
+                        return Token(TokenTypes::ERROR, "Default error");
                         break;
 
                 }
             }
 
-            return Token(123, "Defalt error");;
+            return Token(TokenTypes::ENDOFFILE, "EOF");;
         }
     private:
-        string fileName;
+        char* fileName;
         FILE *file;
+        bool withTokenLog = false;
+        bool withLineLog = false;
         int line;
         bool getNewChar = true;
         char c;
         int state = 1;
         string leitura;
         Token token = Token(TokenTypes::IDENTIFIER, leitura);
-        string primaryLimiter = " <>=!,:;+-*/\n\t";
+        string primaryLimiter = " <>=!.,:;+-*/\n\t";
+        Token errorToken = Token(123, "Default error");
 
         bool isLetter(char c){
             return (int)c >= (int)'A' && (int)c <= (int)'Z' || (int)c >= (int)'a' && (int)c <= (int)'z';
@@ -958,11 +1073,11 @@ class LexicalAnalyzer{
         }
 
         void log(){
-            cout << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
+            if(withLineLog) cout << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
         }
 
         void logToken(){
-            cout << "Enviou o token: " << token.lexema << endl;
+            if(withTokenLog) cout << "Enviou o token: " << token.lexema << endl;
         }
 
         void matchChar(int newState){
@@ -985,9 +1100,15 @@ class LexicalAnalyzer{
                 // Função asterisco
                 cacheAsterisk();
 
-                //ENCONTROU TOKEN CHAR
+                //ENCONTROU TOKEN
                 token = Token(tokenType, leitura); 
             }
+        }
+
+        // Tratando tokens compostos por símbolos
+        void finalNodeSymbol(int tokenType){
+            token = Token(tokenType, leitura);
+            logToken();
         }
 
 };

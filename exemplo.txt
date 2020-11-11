@@ -1,2 +1,2 @@
-var*; while program int is
+"()'var_*; while program int is
 if in
