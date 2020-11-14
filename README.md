@@ -40,3 +40,11 @@ Foi feito dois tipos de log, um que registra apenas o retorno do token, e outro 
 ![Log de estado](github/logEstado.png)
 
 ### Testes
+
+A fim de não poluir este relatório, a baixo segue apenas a referência para o arquivo onde contêm o código que foi executado em cada teste e o log de tokens que resultou após a análise léxica.
+
+- **Teste 1:** [Código](codigos/teste1.txt) - [Log](log/codigos/teste1.txt.log)
+- **Teste 2:** [Código](codigos/teste2.txt) - [Log](log/codigos/teste2.txt.log)
+- **Teste 3:** [Código](codigos/teste3.txt) - [Log](log/codigos/teste3.txt.log)
+- **Teste 4:** [Código](codigos/teste4.txt) - [Log](log/codigos/teste4.txt.log)
+- **Teste 5:** [Código](codigos/teste5.txt) - [Log](log/codigos/teste5.txt.log)
