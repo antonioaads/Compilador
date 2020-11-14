@@ -55,7 +55,7 @@ class LexicalAnalyzer{
                 }
                 else getNewChar = true;
                 
-                if(c == EOF) break;
+                if(c == EOF && state == 1) break;
                 switch(state) {
                     // Nó de entrada
                     case 1:

@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    LexicalAnalyzer a1(argv[1], false, true);
+    LexicalAnalyzer a1(argv[1], true, false);
 
     Token token;
 
