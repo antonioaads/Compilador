@@ -16,6 +16,7 @@ namespace TokenTypes{
         DO,
         DECLARE,
         END,
+        ENDDOT,
         ENDOFFILE,
         ELSE,
         FLOAT,
@@ -60,7 +61,7 @@ int main(int argc, char** argv) {
     }
 
     //LexicalAnalyzer a1("exemplo.txt", true);
-    LexicalAnalyzer a1(argv[1], true, true);
+    LexicalAnalyzer a1(argv[1], true, false);
 
     Token token;
 

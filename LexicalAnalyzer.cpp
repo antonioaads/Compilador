@@ -105,7 +105,8 @@ class LexicalAnalyzer{
                         else if(c == '|') matchChar(281);
                         else if(c == '&') matchChar(291);
 
-                        return errorToken;
+                        else return errorToken;
+                        
                         break;
                     
                     case 11:
@@ -388,12 +389,22 @@ class LexicalAnalyzer{
 
                     case 83:
                         log();
-                        cout << "teste";
-                        finalNodeStandartWord(TokenTypes::END);
-                        if(token.isNotNull()){
-                            logToken();    
+                        // Tratando palavras reservadas
+                        if(c == '.') {
+                            matchChar(1);
+                            finalNodeSymbol(TokenTypes::ENDDOT);
                             return token;
                         }
+
+                        // Tratando Nodo final
+                        else {
+                            finalNodeStandartWord(TokenTypes::END);
+                            if(token.isNotNull()){
+                                logToken();    
+                                return token;
+                            } 
+                        }
+
                         break;
 
                     case 92:
