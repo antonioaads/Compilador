@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <string>
+#include <string.h>
 #include <iostream>
 
 using namespace std;
@@ -21,8 +22,26 @@ class LexicalAnalyzer{
             {
                 throw "Deu erro";
             }
-            
+
             this->file = file;
+
+            char logFileName[100];
+            bzero(logFileName, 100);
+            strcat(logFileName, "log/");
+            strcat(logFileName, fileName);
+            strcat(logFileName, ".log");
+            
+            this->logFile.open(logFileName, ios::trunc);
+
+            if (this->logFile.is_open()){
+                cout << "lilito: Log da compilação disponível em: " << logFileName << endl;
+            }
+            else{
+                cout << "lilito: Erro ao abrir arquivo de log" << endl;
+            }
+        }
+        ~LexicalAnalyzer(){
+            this->logFile.close();
         }
 
         Token getNextToken(){
@@ -1052,6 +1071,7 @@ class LexicalAnalyzer{
     private:
         char* fileName;
         FILE *file;
+        ofstream logFile;
         bool withTokenLog = false;
         bool withLineLog = false;
         int line;
@@ -1084,11 +1104,13 @@ class LexicalAnalyzer{
         }
 
         void log(){
-            if(withLineLog) cout << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
+            //if(withLineLog) cout << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
+            if(withLineLog) logFile << "Entrou no estado: " << state << " Com o caracter: " << c << endl;
         }
 
         void logToken(){
-            if(withTokenLog) cout << "Enviou o token: " << token.lexema << endl;
+            //if(withTokenLog) cout << "Enviou o token: " << token.lexema << endl;
+            if(withTokenLog) logFile << "Enviou o token: " << token.lexema << " Tipo: " << token.type << endl;
         }
 
         void matchChar(int newState){
