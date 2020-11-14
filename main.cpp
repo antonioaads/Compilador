@@ -3,45 +3,6 @@
 #include <iostream>
 #include <fstream>
 
-namespace TokenTypes{
-    enum{
-        ERROR = 0,
-        PROGRAM,
-        IS,
-        IF,
-        IN,
-        INT,
-        INIT,
-        CHAR,
-        DO,
-        DECLARE,
-        END,
-        ENDDOT,
-        ENDOFFILE,
-        ELSE,
-        FLOAT,
-        OUT,
-        REPEAT,
-        THEN,
-        UNTIL,
-        WHILE,
-        IDENTIFIER,
-        RELOP,      // == > >= < <= !=
-        ADDOP,      // + -
-        MULOP,      // * /
-        SEMICOLON,  // ;
-        COLON,      // :
-        COMMA,      //,
-        EQUAL,      // =
-        READ,       // <<
-        WRITE,      // >>
-        NOT,        // !
-        PARENTHESES,// ( )
-        QUOTES      // " " ' 
-    };
-}
-
-
 using namespace std;
 
 #include "Token.cpp"
@@ -60,7 +21,6 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    //LexicalAnalyzer a1("exemplo.txt", true);
     LexicalAnalyzer a1(argv[1], true, false);
 
     Token token;

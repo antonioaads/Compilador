@@ -2,6 +2,44 @@
 #include <string>
 #include <iostream>
 
+namespace TokenTypes{
+    enum{
+        ERROR = 0,
+        PROGRAM,
+        IS,
+        IF,
+        IN,
+        INT,
+        INIT,
+        CHAR,
+        DO,
+        DECLARE,
+        END,
+        ENDDOT,
+        ENDOFFILE,
+        ELSE,
+        FLOAT,
+        OUT,
+        REPEAT,
+        THEN,
+        UNTIL,
+        WHILE,
+        IDENTIFIER,
+        RELOP,      // == > >= < <= !=
+        ADDOP,      // + -
+        MULOP,      // * /
+        SEMICOLON,  // ;
+        COLON,      // :
+        COMMA,      //,
+        EQUAL,      // =
+        READ,       // <<
+        WRITE,      // >>
+        NOT,        // !
+        PARENTHESES,// ( )
+        QUOTES      // " " ' 
+    };
+}
+
 using namespace std;
 
 class Token{
